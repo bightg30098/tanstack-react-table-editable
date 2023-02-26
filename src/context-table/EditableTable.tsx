@@ -5,6 +5,7 @@ import { TableContext } from './TableContext'
 import { useEditableTable } from './hooks'
 
 import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table'
+import { useRendersCount } from 'react-use'
 
 export type EditableTableProps<T> = {
   data: T[]
@@ -22,6 +23,8 @@ export default function EditableTable<T>({ data, columns }: EditableTableProps<T
     defaultColumn,
     getCoreRowModel: getCoreRowModel(),
   })
+
+  console.log('EditableTable renders', useRendersCount())
 
   return (
     <TableContext.Provider value={{ updateData, setIsEditing, getIsEditing, onCancel, onSave, onDelete }}>

@@ -4,11 +4,11 @@ import { TableContext } from './TableContext'
 
 import type { TableContextProps } from './TableContext'
 
-type ActionCellProps = {
+type ContextCellProps = {
   children?: React.ReactNode | ((context: TableContextProps) => React.ReactNode)
 }
 
-export default function ActionCell({ children }: ActionCellProps) {
+export default function ContextCell({ children }: ContextCellProps) {
   const context = useContext(TableContext)
 
   return <>{typeof children === 'function' ? children(context) : children}</>

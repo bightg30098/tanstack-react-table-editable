@@ -1,6 +1,9 @@
+import { CheckIcon, PencilIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { createColumnHelper } from '@tanstack/react-table'
 import clsx from 'clsx'
 import { nanoid } from 'nanoid'
+import ContextCell from './context-table/ContextCell'
+import EditableCell from './context-table/EditableCell'
 
 export type Overview = {
   latestDate: string
@@ -21,7 +24,7 @@ export type Overview = {
   ASPCurrentYear: number
   ASPWeight: number
   ASPGradient: number
-  plants?: Overview[]
+  subRows?: Overview[]
 }
 
 const columnHelper = createColumnHelper<Overview>()
@@ -55,23 +58,19 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('electricCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} />,
-          footer: () => <NumericFormat value={footer?.electricCompareYear} />,
+          cell: (info) => <EditableCell {...info} />,
         }),
         columnHelper.accessor('electricCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} />,
-          footer: () => <NumericFormat value={footer?.electricCurrentYear} />,
+          cell: (info) => <EditableCell {...info} />,
         }),
         columnHelper.accessor('electricWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.electricWeight} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
         columnHelper.accessor('electricGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.electricGradient} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
       ],
     }),
@@ -81,23 +80,19 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('waterUseCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} />,
-          footer: () => <NumericFormat value={footer?.waterUseCompareYear} />,
+          cell: (info) => <EditableCell {...info} />,
         }),
         columnHelper.accessor('waterUseCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} />,
-          footer: () => <NumericFormat value={footer?.waterUseCurrentYear} />,
+          cell: (info) => <EditableCell {...info} />,
         }),
         columnHelper.accessor('waterUseWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.waterUseWeight} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
         columnHelper.accessor('waterUseGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.waterUseGradient} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
       ],
     }),
@@ -107,23 +102,19 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('revenueCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} precision={3} />,
-          footer: () => <NumericFormat value={footer?.revenueCompareYear} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />,
         }),
         columnHelper.accessor('revenueCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} precision={3} />,
-          footer: () => <NumericFormat value={footer?.revenueCurrentYear} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />,
         }),
         columnHelper.accessor('revenueWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.revenueWeight} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
         columnHelper.accessor('revenueGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.revenueGradient} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
       ],
     }),
@@ -133,29 +124,56 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('ASPCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} precision={3} />,
-          footer: () => <NumericFormat value={footer?.ASPCompareYear} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />,
         }),
         columnHelper.accessor('ASPCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} precision={3} />,
-          footer: () => <NumericFormat value={footer?.ASPCurrentYear} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />,
         }),
         columnHelper.accessor('ASPGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <NumericFormat value={info.getValue()} unit={1e-2} suffix="%" />,
-          footer: () => <NumericFormat value={footer?.ASPGradient} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
       ],
     }),
-  ]
-}
+    columnHelper.display({
+      id: nanoid(),
+      header: 'Actions',
+      cell: (info) => {
+        const rowIndex = info.row.index
 
-function NumericFormat({ value = 0, unit = 1, suffix = '', precision = 0 }) {
-  return (
-    <span>
-      {(value / unit).toLocaleString('en-US', { maximumFractionDigits: precision, minimumFractionDigits: precision })}
-      {suffix}
-    </span>
-  )
+        return (
+          <ContextCell>
+            {({ getIsEditing, setIsEditing, onCancel, onSave, onDelete }) => (
+              <>
+                {getIsEditing(rowIndex) ? (
+                  <>
+                    <button onClick={() => onSave(rowIndex)}>
+                      <CheckIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        onCancel(rowIndex)
+                      }}
+                    >
+                      <XMarkIcon className="h-5 w-5" />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => setIsEditing(rowIndex, true)}>
+                      <PencilIcon className="h-5 w-5" />
+                    </button>
+                    <button onClick={() => onDelete(rowIndex)}>
+                      <TrashIcon className="h-5 w-5" />
+                    </button>
+                  </>
+                )}
+              </>
+            )}
+          </ContextCell>
+        )
+      },
+    }),
+  ]
 }
