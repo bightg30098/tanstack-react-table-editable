@@ -10,3 +10,5 @@ cd tanstack-react-table-editable
 yarn
 yarn dev
 ```
+
+or open it in [CodeSandbox](https://codesandbox.io/s/github/bightg30098/tanstack-react-table-editable)
