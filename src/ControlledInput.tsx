@@ -5,6 +5,7 @@ export type ControlledInputProps = {
   onBlur?: (e: string | number | readonly string[] | undefined) => void
 } & React.InputHTMLAttributes<HTMLInputElement>
 
+// This component is a controlled input
 export default function ControlledInput({ value, className, onBlur = () => {} }: ControlledInputProps) {
   const [_value, setValue] = useState(value)
 

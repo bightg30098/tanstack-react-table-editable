@@ -1,5 +1,7 @@
 import '@tanstack/react-table'
 
+import type { ActionProps } from './meta-table/types'
+
 declare module '@tanstack/table-core' {
   interface ColumnMeta {
     header?: {
@@ -26,5 +28,7 @@ declare module '@tanstack/table-core' {
 
   interface TableMeta {
     className?: string
+    dispatch?: React.Dispatch<ActionProps>
+    getIsEditing?: (rowId: string) => boolean
   }
 }

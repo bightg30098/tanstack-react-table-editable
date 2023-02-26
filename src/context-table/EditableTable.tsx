@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 
 import EditableCell from './EditableCell'
 import { TableContext } from './TableContext'
-import { useEditableTable } from './hooks'
+import { useEditableTable } from './useEditableTable'
 
 import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table'
 

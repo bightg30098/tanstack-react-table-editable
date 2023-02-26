@@ -3,10 +3,9 @@ import { createColumnHelper } from '@tanstack/react-table'
 import clsx from 'clsx'
 import { nanoid } from 'nanoid'
 
-import ContextCell from './context-table/ContextCell'
-import EditableCell from './context-table/EditableCell'
+import EditableCell from './EditableCell'
 
-import type { Overview } from './mockData'
+import type { Overview } from '../mockData'
 
 const columnHelper = createColumnHelper<Overview>()
 
@@ -15,6 +14,46 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
   const lastYear = currYear - 1
 
   return [
+    // Actions, edit, delete, save, cancel events are handled here
+    columnHelper.display({
+      id: nanoid(),
+      header: 'Actions',
+      cell: (info) => {
+        const rowId = info.row.id
+
+        // use non-null assertion operator to tell typescript that these values are not null
+        const dispatch = info.table.options.meta!.dispatch!
+        const getIsEditing = info.table.options.meta!.getIsEditing!
+
+        return (
+          <>
+            {getIsEditing(rowId) ? (
+              <>
+                <button onClick={() => dispatch({ type: 'ON_SAVE', payload: { rowId } })}>
+                  <CheckIcon className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => {
+                    dispatch({ type: 'ON_CANCEL', payload: { rowId } })
+                  }}
+                >
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => dispatch({ type: 'SET_IS_EDITING', payload: { rowId, isEditing: true } })}>
+                  <PencilIcon className="h-5 w-5" />
+                </button>
+                <button onClick={() => dispatch({ type: 'ON_DELETE', payload: { rowId } })}>
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+              </>
+            )}
+          </>
+        )
+      },
+    }),
     columnHelper.group({
       id: nanoid(),
       header: () => <span>Site</span>,
@@ -116,45 +155,6 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
           cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
         }),
       ],
-    }),
-    columnHelper.display({
-      id: nanoid(),
-      header: 'Actions',
-      cell: (info) => {
-        const rowId = info.row.id
-
-        return (
-          <ContextCell>
-            {({ getIsEditing, dispatch }) => (
-              <>
-                {getIsEditing(rowId) ? (
-                  <>
-                    <button onClick={() => dispatch({ type: 'ON_SAVE', payload: { rowId } })}>
-                      <CheckIcon className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        dispatch({ type: 'ON_CANCEL', payload: { rowId } })
-                      }}
-                    >
-                      <XMarkIcon className="h-5 w-5" />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button onClick={() => dispatch({ type: 'SET_IS_EDITING', payload: { rowId, isEditing: true } })}>
-                      <PencilIcon className="h-5 w-5" />
-                    </button>
-                    <button onClick={() => dispatch({ type: 'ON_DELETE', payload: { rowId } })}>
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
-                  </>
-                )}
-              </>
-            )}
-          </ContextCell>
-        )
-      },
     }),
   ]
 }

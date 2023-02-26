@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { ActionProps } from './types'
+import type { ActionProps } from '../types'
 
 // Create a context for the table
 export type TableContextProps = {

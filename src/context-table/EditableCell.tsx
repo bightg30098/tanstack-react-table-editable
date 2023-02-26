@@ -14,8 +14,7 @@ type EditableCellProps<T> = {
 
 /*
   This component is the default editable cell renderer
-  If isEditing is true, it renders the custom inputRender or a default ControlledInput component
-  If isEditing is false, it renders the custom render or a NumericFormat component
+  You can pass in a custom render or inputRender prop to override the default behavior
 */
 export default function EditableCell<T>({
   getValue,

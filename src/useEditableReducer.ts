@@ -1,20 +1,12 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
-import { useReactTable } from '@tanstack/react-table'
-
 import type { ActionProps, DraftProps } from './types'
-import type { TableOptions } from '@tanstack/react-table'
 
-export function useEditableTable<T>({
-  data,
-  columns,
-  defaultColumn,
-  getCoreRowModel,
-}: Omit<TableOptions<T>, 'data'> & { data: (T & { _id: string })[] }) {
+export function useEditableReducer<T>({ data }: { data: (T & { _id: string })[] }) {
   // Create a local state for the table data
   const [_data, setData] = useState(data)
 
-  // Create a snapshot of the table data by row index
+  // Create a snapshot of the table data by row id
   const getSnapshot = useCallback(
     (data: (T & { _id: string })[]) =>
       data.reduce((prev, curr) => ({ ...prev, [curr._id]: curr }), {} as Record<string, T & { _id: string }>),
@@ -100,20 +92,7 @@ export function useEditableTable<T>({
     }
   }, {} as Record<string, DraftProps>)
 
-  const getIsEditing = (rowId: string) => {
-    return draft[rowId]?.isEditing ?? false
-  }
-
-  const table = useReactTable({
-    data: _data,
-    columns,
-    defaultColumn,
-    getCoreRowModel,
-    getRowId: (originalRow, index, parent) => {
-      // custom get row id
-      return (originalRow as T & { _id: string })._id
-    },
-  })
+  const getIsEditing = useCallback((rowId: string) => draft[rowId]?.isEditing ?? false, [draft])
 
   useEffect(() => {
     snapshotRef.current = getSnapshot(data)
@@ -122,8 +101,8 @@ export function useEditableTable<T>({
   }, [data, getSnapshot])
 
   return {
-    table,
+    data: _data,
     dispatch,
     getIsEditing,
-  } as const
+  }
 }
