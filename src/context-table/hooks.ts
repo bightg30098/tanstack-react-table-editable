@@ -1,9 +1,10 @@
-import { Reducer, useEffect, useReducer, useRef, useState } from 'react'
+import type { Reducer } from 'react'
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import { useReactTable } from '@tanstack/react-table'
 
+import type { ActionProps, DraftProps } from './types'
 import type { TableOptions } from '@tanstack/react-table'
-import { ActionProps, DraftProps } from './types'
 
 export function useEditableTable<T>({
   data,
@@ -15,8 +16,11 @@ export function useEditableTable<T>({
   const [_data, setData] = useState(data)
 
   // Create a snapshot of the table data by row index
-  const getSnapshot = (data: (T & { _id: string })[]) =>
-    data.reduce((prev, curr) => ({ ...prev, [curr._id]: curr }), {} as Record<string, T & { _id: string }>)
+  const getSnapshot = useCallback(
+    (data: (T & { _id: string })[]) =>
+      data.reduce((prev, curr) => ({ ...prev, [curr._id]: curr }), {} as Record<string, T & { _id: string }>),
+    [],
+  )
 
   const snapshotRef = useRef(getSnapshot(data))
 
@@ -116,7 +120,7 @@ export function useEditableTable<T>({
     snapshotRef.current = getSnapshot(data)
     dispatch({ type: 'RESET' })
     setData(data)
-  }, [data])
+  }, [data, getSnapshot])
 
   return {
     table,

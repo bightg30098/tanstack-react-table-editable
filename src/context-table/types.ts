@@ -44,5 +44,5 @@ export type ActionProps =
     }
   | {
       type: 'RESET'
-      payload?: {}
+      payload?: Record<string, never>
     }

@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
-import { getColumns, Overview } from './Columns'
-import EditableTable from './context-table/EditableTable'
 
+import { getColumns } from './Columns'
+import EditableTable from './context-table/EditableTable'
 import mock from './mock.json'
+
+import type { Overview } from './Columns'
 
 export default function App() {
   const columns = useMemo(() => getColumns({ latestDate: new Date() }), [])

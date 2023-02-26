@@ -2,6 +2,7 @@ import { CheckIcon, PencilIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24
 import { createColumnHelper } from '@tanstack/react-table'
 import clsx from 'clsx'
 import { nanoid } from 'nanoid'
+
 import ContextCell from './context-table/ContextCell'
 import EditableCell from './context-table/EditableCell'
 

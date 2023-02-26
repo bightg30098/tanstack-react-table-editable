@@ -1,7 +1,10 @@
-import type { CellContext } from '@tanstack/react-table'
-import ContextCell from './ContextCell'
 import ControlledInput from '../ControlledInput'
-import NumericFormat, { NumericFormatProps } from '../NumericFormat'
+import NumericFormat from '../NumericFormat'
+
+import ContextCell from './ContextCell'
+
+import type { NumericFormatProps } from '../NumericFormat'
+import type { CellContext } from '@tanstack/react-table'
 
 type EditableCellProps<T> = {
   render?: React.ReactNode | ((props: CellContext<T, unknown>) => React.ReactNode)
@@ -31,7 +34,7 @@ export default function EditableCell<T>({
           {getIsEditing(row.id)
             ? inputRender ?? (
                 <ControlledInput
-                  className="border-gray-900 border max-w-[4rem]"
+                  className="max-w-[4rem] border border-gray-900"
                   value={value}
                   onBlur={(nextValue) =>
                     dispatch({
