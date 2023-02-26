@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import type { ActionProps, DraftProps } from './types'
 
+// useEditableReducer is a custom hook that manages the draft state of the table
 export function useEditableReducer<T>({ data }: { data: (T & { _id: string })[] }) {
   // Create a local state for the table data
   const [_data, setData] = useState(data)
