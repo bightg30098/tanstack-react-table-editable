@@ -26,6 +26,5 @@ declare module '@tanstack/table-core' {
 
   interface TableMeta {
     className?: string
-    updateData?: (rowIndex: number, columnId: string, value: unknown) => void
   }
 }

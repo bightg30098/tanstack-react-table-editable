@@ -5,6 +5,8 @@ import { TableContext } from './TableContext'
 import { useEditableTable } from './hooks'
 
 import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table'
+import { nanoid } from 'nanoid'
+import { useMemo } from 'react'
 
 export type EditableTableProps<T> = {
   data: T[]
@@ -16,9 +18,12 @@ const defaultColumn = {
 }
 
 export default function EditableTable<T>({ data, columns }: EditableTableProps<T>) {
+  // make sure each row has a unique id
+  const dataWithId = useMemo(() => data.map((d) => ({ ...d, _id: nanoid() })), [])
+
   // This hook returns the table instance and the dispatch function to update the table state
   const { table, dispatch, getIsEditing } = useEditableTable({
-    data,
+    data: dataWithId,
     columns,
     defaultColumn,
     getCoreRowModel: getCoreRowModel(),

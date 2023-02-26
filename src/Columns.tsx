@@ -140,20 +140,20 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       id: nanoid(),
       header: 'Actions',
       cell: (info) => {
-        const rowIndex = info.row.index
+        const rowId = info.row.id
 
         return (
           <ContextCell>
             {({ getIsEditing, dispatch }) => (
               <>
-                {getIsEditing(rowIndex) ? (
+                {getIsEditing(rowId) ? (
                   <>
-                    <button onClick={() => dispatch({ type: 'ON_SAVE', payload: { rowIndex } })}>
+                    <button onClick={() => dispatch({ type: 'ON_SAVE', payload: { rowId } })}>
                       <CheckIcon className="h-5 w-5" />
                     </button>
                     <button
                       onClick={() => {
-                        dispatch({ type: 'ON_CANCEL', payload: { rowIndex } })
+                        dispatch({ type: 'ON_CANCEL', payload: { rowId } })
                       }}
                     >
                       <XMarkIcon className="h-5 w-5" />
@@ -161,12 +161,10 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
                   </>
                 ) : (
                   <>
-                    <button
-                      onClick={() => dispatch({ type: 'SET_IS_EDITING', payload: { rowIndex, isEditing: true } })}
-                    >
+                    <button onClick={() => dispatch({ type: 'SET_IS_EDITING', payload: { rowId, isEditing: true } })}>
                       <PencilIcon className="h-5 w-5" />
                     </button>
-                    <button onClick={() => dispatch({ type: 'ON_DELETE', payload: { rowIndex } })}>
+                    <button onClick={() => dispatch({ type: 'ON_DELETE', payload: { rowId } })}>
                       <TrashIcon className="h-5 w-5" />
                     </button>
                   </>

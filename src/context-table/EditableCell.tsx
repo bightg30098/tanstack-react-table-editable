@@ -28,7 +28,7 @@ export default function EditableCell<T>({
     <ContextCell>
       {({ dispatch, getIsEditing }) => (
         <>
-          {getIsEditing(row.index)
+          {getIsEditing(row.id)
             ? inputRender ?? (
                 <ControlledInput
                   className="border-gray-900 border max-w-[4rem]"
@@ -36,7 +36,7 @@ export default function EditableCell<T>({
                   onBlur={(nextValue) =>
                     dispatch({
                       type: 'UPDATE_DATA',
-                      payload: { rowIndex: row.index, columnId: column.id, value: nextValue },
+                      payload: { rowId: row.id, columnId: column.id, value: nextValue },
                     })
                   }
                 />

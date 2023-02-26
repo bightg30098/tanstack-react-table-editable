@@ -12,7 +12,7 @@ export type ActionProps =
   | {
       type: 'UPDATE_DATA'
       payload: {
-        rowIndex: number
+        rowId: string
         columnId: string
         value: unknown
       }
@@ -20,26 +20,26 @@ export type ActionProps =
   | {
       type: 'SET_IS_EDITING'
       payload: {
-        rowIndex: number
+        rowId: string
         isEditing: boolean
       }
     }
   | {
       type: 'ON_CANCEL'
       payload: {
-        rowIndex: number
+        rowId: string
       }
     }
   | {
       type: 'ON_SAVE'
       payload: {
-        rowIndex: number
+        rowId: string
       }
     }
   | {
       type: 'ON_DELETE'
       payload: {
-        rowIndex: number
+        rowId: string
       }
     }
   | {
