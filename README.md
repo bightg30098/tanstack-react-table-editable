@@ -5,7 +5,7 @@ Editable Table Example using [@tanstack/react-table v8](https://tanstack.com/tab
 To run this example:
 
 ```bash
-git clone(https://github.com/bightg30098/tanstack-react-table-editable.git)
+git clone https://github.com/bightg30098/tanstack-react-table-editable.git
 cd tanstack-react-table-editable
 yarn
 yarn dev
