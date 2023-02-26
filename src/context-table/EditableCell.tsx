@@ -9,6 +9,11 @@ type EditableCellProps<T> = {
 } & CellContext<T, unknown> &
   NumericFormatProps
 
+/*
+  This component is the default editable cell renderer
+  If isEditing is true, it renders the custom inputRender or a default ControlledInput component
+  If isEditing is false, it renders the custom render or a NumericFormat component
+*/
 export default function EditableCell<T>({
   getValue,
   row,
@@ -21,14 +26,19 @@ export default function EditableCell<T>({
 
   return (
     <ContextCell>
-      {({ getIsEditing, updateData }) => (
+      {({ dispatch, getIsEditing }) => (
         <>
           {getIsEditing(row.index)
             ? inputRender ?? (
                 <ControlledInput
                   className="border-gray-900 border max-w-[4rem]"
                   value={value}
-                  onBlur={(nextValue) => updateData(row.index, column.id, nextValue)}
+                  onBlur={(nextValue) =>
+                    dispatch({
+                      type: 'UPDATE_DATA',
+                      payload: { rowIndex: row.index, columnId: column.id, value: nextValue },
+                    })
+                  }
                 />
               )
             : render ?? (

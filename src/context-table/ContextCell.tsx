@@ -8,6 +8,7 @@ type ContextCellProps = {
   children?: React.ReactNode | ((context: TableContextProps) => React.ReactNode)
 }
 
+// This component consumes the TableContext and passes it to its children
 export default function ContextCell({ children }: ContextCellProps) {
   const context = useContext(TableContext)
 

@@ -144,16 +144,16 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
 
         return (
           <ContextCell>
-            {({ getIsEditing, setIsEditing, onCancel, onSave, onDelete }) => (
+            {({ getIsEditing, dispatch }) => (
               <>
                 {getIsEditing(rowIndex) ? (
                   <>
-                    <button onClick={() => onSave(rowIndex)}>
+                    <button onClick={() => dispatch({ type: 'ON_SAVE', payload: { rowIndex } })}>
                       <CheckIcon className="h-5 w-5" />
                     </button>
                     <button
                       onClick={() => {
-                        onCancel(rowIndex)
+                        dispatch({ type: 'ON_CANCEL', payload: { rowIndex } })
                       }}
                     >
                       <XMarkIcon className="h-5 w-5" />
@@ -161,10 +161,12 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
                   </>
                 ) : (
                   <>
-                    <button onClick={() => setIsEditing(rowIndex, true)}>
+                    <button
+                      onClick={() => dispatch({ type: 'SET_IS_EDITING', payload: { rowIndex, isEditing: true } })}
+                    >
                       <PencilIcon className="h-5 w-5" />
                     </button>
-                    <button onClick={() => onDelete(rowIndex)}>
+                    <button onClick={() => dispatch({ type: 'ON_DELETE', payload: { rowIndex } })}>
                       <TrashIcon className="h-5 w-5" />
                     </button>
                   </>

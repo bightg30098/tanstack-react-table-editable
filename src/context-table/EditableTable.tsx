@@ -5,7 +5,6 @@ import { TableContext } from './TableContext'
 import { useEditableTable } from './hooks'
 
 import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table'
-import { useRendersCount } from 'react-use'
 
 export type EditableTableProps<T> = {
   data: T[]
@@ -17,17 +16,17 @@ const defaultColumn = {
 }
 
 export default function EditableTable<T>({ data, columns }: EditableTableProps<T>) {
-  const { table, updateData, setIsEditing, getIsEditing, onCancel, onSave, onDelete } = useEditableTable({
+  // This hook returns the table instance and the dispatch function to update the table state
+  const { table, dispatch, getIsEditing } = useEditableTable({
     data,
     columns,
     defaultColumn,
     getCoreRowModel: getCoreRowModel(),
   })
 
-  console.log('EditableTable renders', useRendersCount())
-
   return (
-    <TableContext.Provider value={{ updateData, setIsEditing, getIsEditing, onCancel, onSave, onDelete }}>
+    // This context provider is used to pass the dispatch function to the editable cell renderer
+    <TableContext.Provider value={{ dispatch, getIsEditing }}>
       <div className="relative flex flex-col overflow-auto rounded-t-lg shadow-lg">
         <table className="w-full border-separate border-spacing-0 text-right">
           <thead>
