@@ -42,3 +42,7 @@ export type ActionProps =
         rowIndex: number
       }
     }
+  | {
+      type: 'RESET'
+      payload?: {}
+    }
