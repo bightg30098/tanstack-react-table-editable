@@ -1,4 +1,3 @@
-import type { Reducer } from 'react'
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import { useReactTable } from '@tanstack/react-table'
@@ -25,7 +24,7 @@ export function useEditableTable<T>({
   const snapshotRef = useRef(getSnapshot(data))
 
   // useReducer is used to manage the draft state of the table
-  const [draft, dispatch] = useReducer<Reducer<Record<string, DraftProps>, ActionProps>>((prev, action) => {
+  const [draft, dispatch] = useReducer<React.Reducer<Record<string, DraftProps>, ActionProps>>((prev, action) => {
     const { type, payload } = action
     const rowId = type === 'RESET' ? '' : payload.rowId
 

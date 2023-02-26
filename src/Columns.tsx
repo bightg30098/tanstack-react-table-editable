@@ -6,27 +6,7 @@ import { nanoid } from 'nanoid'
 import ContextCell from './context-table/ContextCell'
 import EditableCell from './context-table/EditableCell'
 
-export type Overview = {
-  latestDate: string
-  site: string
-  electricCompareYear: number
-  electricCurrentYear: number
-  electricWeight: number
-  electricGradient: number
-  waterUseCompareYear: number
-  waterUseCurrentYear: number
-  waterUseWeight: number
-  waterUseGradient: number
-  revenueCompareYear: number
-  revenueCurrentYear: number
-  revenueWeight: number
-  revenueGradient: number
-  ASPCompareYear: number
-  ASPCurrentYear: number
-  ASPWeight: number
-  ASPGradient: number
-  subRows?: Overview[]
-}
+import type { Overview } from './mockData'
 
 const columnHelper = createColumnHelper<Overview>()
 
