@@ -4,9 +4,7 @@ export type DraftProps = {
   isDeleted?: boolean
   isSaved?: boolean
   isNew?: boolean
-  rowIndex: number
-  columnId: string
-  value: unknown
+  data: Record<string, unknown>
 }
 
 // Union types for editing actions

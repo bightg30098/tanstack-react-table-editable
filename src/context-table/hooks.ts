@@ -16,7 +16,7 @@ export function useEditableTable<T>({ data, columns, defaultColumn, getCoreRowMo
   // useReducer is used to manage the draft state of the table
   const [draft, dispatch] = useReducer<Reducer<Record<string, DraftProps>, ActionProps>>((prev, action) => {
     const { type, payload } = action
-    const { rowIndex } = payload
+    const rowIndex: number = payload.rowIndex
 
     switch (type) {
       // Set isEditing state of the row
@@ -44,12 +44,11 @@ export function useEditableTable<T>({ data, columns, defaultColumn, getCoreRowMo
         const { [rowIndex]: rowData, ...rest } = prev
 
         // Update the snapshot by draft row data
-        const { columnId, value } = rowData
         snapshotRef.current = {
           ...snapshotRef.current,
           [rowIndex]: {
             ...snapshotRef.current[rowIndex],
-            [columnId]: value,
+            ...rowData.data,
           },
         }
 
@@ -76,7 +75,10 @@ export function useEditableTable<T>({ data, columns, defaultColumn, getCoreRowMo
 
       // Update the draft state of the row
       case 'UPDATE_DATA': {
-        return { ...prev, [rowIndex]: { ...prev[rowIndex], ...payload } }
+        return {
+          ...prev,
+          [rowIndex]: { ...prev[rowIndex], data: { ...prev[rowIndex].data, [payload.columnId]: payload.value } },
+        }
       }
 
       default:
