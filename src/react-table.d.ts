@@ -1,6 +1,6 @@
 import '@tanstack/react-table'
 
-import type { ActionProps } from './meta-table/types'
+import type { ActionProps } from './types'
 
 declare module '@tanstack/table-core' {
   interface ColumnMeta {

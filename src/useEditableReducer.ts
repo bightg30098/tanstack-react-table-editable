@@ -105,5 +105,5 @@ export function useEditableReducer<T>({ data }: { data: (T & { _id: string })[] 
     data: _data,
     dispatch,
     getIsEditing,
-  }
+  } as const
 }
