@@ -34,7 +34,7 @@ export default function EditableCell<T>({
       {getIsEditing(row.id)
         ? inputRender ?? (
             <ControlledInput
-              className="max-w-[4rem] border border-gray-900"
+              className="max-w-[4rem] border border-gray-900 text-right"
               value={value}
               onBlur={(nextValue) =>
                 dispatch({
@@ -45,7 +45,13 @@ export default function EditableCell<T>({
             />
           )
         : render ?? (
-            <NumericFormat precision={props.precision} suffix={props.suffix} unit={props.unit} value={Number(value)} />
+            <NumericFormat
+              className="max-w-[4rem] border border-transparent text-right"
+              precision={props.precision}
+              suffix={props.suffix}
+              unit={props.unit}
+              value={Number(value)}
+            />
           )}
     </>
   )
