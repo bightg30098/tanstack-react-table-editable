@@ -1,16 +1,16 @@
-import ControlledInput from '../ControlledInput'
-import NumericFormat from '../NumericFormat'
+import ControlledInput from '../ControlledInput';
+import NumericFormat from '../NumericFormat';
 
-import ContextCell from './ContextCell'
+import ContextCell from './ContextCell';
 
-import type { NumericFormatProps } from '../NumericFormat'
-import type { CellContext } from '@tanstack/react-table'
+import type { NumericFormatProps } from '../NumericFormat';
+import type { CellContext } from '@tanstack/react-table';
 
 type EditableCellProps<T> = {
-  render?: React.ReactNode | ((props: CellContext<T, unknown>) => React.ReactNode)
-  inputRender?: React.ReactNode | ((props: CellContext<T, unknown>) => React.ReactNode)
+  render?: React.ReactNode | ((props: CellContext<T, unknown>) => React.ReactNode);
+  inputRender?: React.ReactNode | ((props: CellContext<T, unknown>) => React.ReactNode);
 } & CellContext<T, unknown> &
-  NumericFormatProps
+  NumericFormatProps;
 
 /*
   This component is the default editable cell renderer
@@ -24,7 +24,7 @@ export default function EditableCell<T>({
   inputRender,
   ...props
 }: EditableCellProps<T>) {
-  const value = getValue() as string
+  const value = getValue() as string;
 
   return (
     <ContextCell>
@@ -38,7 +38,7 @@ export default function EditableCell<T>({
                   onBlur={(nextValue) =>
                     dispatch({
                       type: 'UPDATE_DATA',
-                      payload: { rowId: row.id, columnId: column.id, value: nextValue },
+                      payload: { rowId: row.id, columnId: column.id, value: nextValue }
                     })
                   }
                 />
@@ -55,5 +55,5 @@ export default function EditableCell<T>({
         </>
       )}
     </ContextCell>
-  )
+  );
 }

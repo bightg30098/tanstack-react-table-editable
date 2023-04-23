@@ -1,33 +1,33 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
-import { getCoreRowModel, flexRender } from '@tanstack/react-table'
-import { nanoid } from 'nanoid'
+import { flexRender, getCoreRowModel } from '@tanstack/react-table';
+import { nanoid } from 'nanoid';
 
-import EditableCell from './EditableCell'
-import { useEditableTable } from './useEditableTable'
+import EditableCell from './EditableCell';
+import { useEditableTable } from './useEditableTable';
 
-import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table'
+import type { ColumnDef, ColumnDefBase } from '@tanstack/react-table';
 
 export type EditableTableProps<T> = {
-  data: T[]
-  columns: ColumnDef<T, unknown>[] & ColumnDefBase<T, unknown>[]
-}
+  data: T[];
+  columns: ColumnDef<T, unknown>[] & ColumnDefBase<T, unknown>[];
+};
 
 const defaultColumn = {
-  cell: EditableCell,
-}
+  cell: EditableCell
+};
 
 export default function EditableTable<T>({ data, columns }: EditableTableProps<T>) {
   // make sure each row has a unique id
-  const dataWithId = useMemo(() => data.map((d) => ({ ...d, _id: nanoid() })), [data])
+  const dataWithId = useMemo(() => data.map((d) => ({ ...d, _id: nanoid() })), [data]);
 
   // This hook returns the table instance and the dispatch function to update the table state
   const { table } = useEditableTable({
     data: dataWithId,
     columns,
     defaultColumn,
-    getCoreRowModel: getCoreRowModel(),
-  })
+    getCoreRowModel: getCoreRowModel()
+  });
 
   return (
     <div className="relative flex flex-col overflow-auto rounded-t-lg shadow-lg">
@@ -42,7 +42,7 @@ export default function EditableTable<T>({ data, columns }: EditableTableProps<T
                       <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                     )}
                   </th>
-                )
+                );
               })}
             </tr>
           ))}
@@ -52,13 +52,13 @@ export default function EditableTable<T>({ data, columns }: EditableTableProps<T
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
-                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
                 })}
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
     </div>
-  )
+  );
 }

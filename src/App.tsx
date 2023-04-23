@@ -1,13 +1,13 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
-import clsx from 'clsx'
-import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom'
+import clsx from 'clsx';
+import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 
-import { getColumns as getContextColumns } from './context-table/Columns'
-import ContextTable from './context-table/EditableTable'
-import { getColumns as getMetaColumns } from './meta-table/Columns'
-import MetaTable from './meta-table/EditableTable'
-import { createOverview } from './mockData'
+import { getColumns as getContextColumns } from './context-table/Columns';
+import ContextTable from './context-table/EditableTable';
+import { getColumns as getMetaColumns } from './meta-table/Columns';
+import MetaTable from './meta-table/EditableTable';
+import { createOverview } from './mockData';
 
 export default function App() {
   return (
@@ -29,27 +29,27 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </main>
-  )
+  );
 }
 
 function ContextTableExample() {
-  const contextColumns = useMemo(() => getContextColumns({ latestDate: new Date() }), [])
-  const contextData = useMemo(() => Array.from({ length: 20 }, (_) => createOverview()), [])
+  const contextColumns = useMemo(() => getContextColumns({ latestDate: new Date() }), []);
+  const contextData = useMemo(() => Array.from({ length: 20 }, (_) => createOverview()), []);
 
   return (
     <>
       <ContextTable columns={contextColumns} data={contextData} />
     </>
-  )
+  );
 }
 
 function MetaTableExample() {
-  const metaColumns = useMemo(() => getMetaColumns({ latestDate: new Date() }), [])
-  const metaData = useMemo(() => Array.from({ length: 20 }, (_) => createOverview()), [])
+  const metaColumns = useMemo(() => getMetaColumns({ latestDate: new Date() }), []);
+  const metaData = useMemo(() => Array.from({ length: 20 }, (_) => createOverview()), []);
 
   return (
     <>
       <MetaTable columns={metaColumns} data={metaData} />
     </>
-  )
+  );
 }

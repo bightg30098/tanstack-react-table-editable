@@ -1,18 +1,18 @@
-import { CheckIcon, PencilIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { createColumnHelper } from '@tanstack/react-table'
-import clsx from 'clsx'
-import { nanoid } from 'nanoid'
+import { CheckIcon, PencilIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { createColumnHelper } from '@tanstack/react-table';
+import clsx from 'clsx';
+import { nanoid } from 'nanoid';
 
-import ContextCell from './ContextCell'
-import EditableCell from './EditableCell'
+import ContextCell from './ContextCell';
+import EditableCell from './EditableCell';
 
-import type { Overview } from '../mockData'
+import type { Overview } from '../mockData';
 
-const columnHelper = createColumnHelper<Overview>()
+const columnHelper = createColumnHelper<Overview>();
 
 export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDate: Date }) => {
-  const currYear = latestDate.getFullYear()
-  const lastYear = currYear - 1
+  const currYear = latestDate.getFullYear();
+  const lastYear = currYear - 1;
 
   return [
     // Actions, edit, delete, save, cancel events are handled here
@@ -20,7 +20,7 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       id: nanoid(),
       header: 'Actions',
       cell: (info) => {
-        const rowId = info.row.id
+        const rowId = info.row.id;
 
         return (
           <ContextCell>
@@ -33,7 +33,7 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
                     </button>
                     <button
                       onClick={() => {
-                        dispatch({ type: 'ON_CANCEL', payload: { rowId } })
+                        dispatch({ type: 'ON_CANCEL', payload: { rowId } });
                       }}
                     >
                       <XMarkIcon className="h-5 w-5" />
@@ -52,8 +52,8 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
               </>
             )}
           </ContextCell>
-        )
-      },
+        );
+      }
     }),
     columnHelper.group({
       id: nanoid(),
@@ -65,13 +65,13 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
           meta: {
             header: { isPlaceholder: true },
             cell: { className: clsx('whitespace-nowrap text-center') },
-            footer: { className: clsx('text-center') },
-          },
-        }),
+            footer: { className: clsx('text-center') }
+          }
+        })
       ],
       meta: {
-        header: { rowSpan: 2 },
-      },
+        header: { rowSpan: 2 }
+      }
     }),
     columnHelper.group({
       id: nanoid(),
@@ -79,21 +79,21 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('electricCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <EditableCell {...info} />,
+          cell: (info) => <EditableCell {...info} />
         }),
         columnHelper.accessor('electricCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <EditableCell {...info} />,
+          cell: (info) => <EditableCell {...info} />
         }),
         columnHelper.accessor('electricWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
         }),
         columnHelper.accessor('electricGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
-        }),
-      ],
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
+        })
+      ]
     }),
     columnHelper.group({
       id: nanoid(),
@@ -101,21 +101,21 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('waterUseCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <EditableCell {...info} />,
+          cell: (info) => <EditableCell {...info} />
         }),
         columnHelper.accessor('waterUseCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <EditableCell {...info} />,
+          cell: (info) => <EditableCell {...info} />
         }),
         columnHelper.accessor('waterUseWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
         }),
         columnHelper.accessor('waterUseGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
-        }),
-      ],
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
+        })
+      ]
     }),
     columnHelper.group({
       id: nanoid(),
@@ -123,21 +123,21 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('revenueCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <EditableCell {...info} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />
         }),
         columnHelper.accessor('revenueCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <EditableCell {...info} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />
         }),
         columnHelper.accessor('revenueWeight', {
           header: () => <span>Weight</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
         }),
         columnHelper.accessor('revenueGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
-        }),
-      ],
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
+        })
+      ]
     }),
     columnHelper.group({
       id: nanoid(),
@@ -145,17 +145,17 @@ export const getColumns = ({ footer, latestDate }: { footer?: Overview; latestDa
       columns: [
         columnHelper.accessor('ASPCompareYear', {
           header: () => <span>{lastYear}</span>,
-          cell: (info) => <EditableCell {...info} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />
         }),
         columnHelper.accessor('ASPCurrentYear', {
           header: () => <span>{currYear}</span>,
-          cell: (info) => <EditableCell {...info} precision={3} />,
+          cell: (info) => <EditableCell {...info} precision={3} />
         }),
         columnHelper.accessor('ASPGradient', {
           header: () => <span>Gap *</span>,
-          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />,
-        }),
-      ],
-    }),
-  ]
-}
+          cell: (info) => <EditableCell {...info} unit={1e-2} suffix="%" />
+        })
+      ]
+    })
+  ];
+};

@@ -1,12 +1,12 @@
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 export type NumericFormatProps = {
-  value?: number
-  unit?: number
-  suffix?: string
-  precision?: number
-  className?: string
-}
+  value?: number;
+  unit?: number;
+  suffix?: string;
+  precision?: number;
+  className?: string;
+};
 
 export default function NumericFormat({ className = '', value = 0, unit = 1, suffix = '', precision = 0 }) {
   return (
@@ -15,8 +15,8 @@ export default function NumericFormat({ className = '', value = 0, unit = 1, suf
       <input readOnly className={clsx('pointer-events-none', className)} />
       <span className="absolute right-0">{`${(value / unit).toLocaleString('en-US', {
         maximumFractionDigits: precision,
-        minimumFractionDigits: precision,
+        minimumFractionDigits: precision
       })}${suffix}`}</span>
     </div>
-  )
+  );
 }

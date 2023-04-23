@@ -1,17 +1,17 @@
-import { useReactTable } from '@tanstack/react-table'
+import { useReactTable } from '@tanstack/react-table';
 
-import { useEditableReducer } from '../useEditableReducer'
+import { useEditableReducer } from '../useEditableReducer';
 
-import type { TableOptions } from '@tanstack/react-table'
+import type { TableOptions } from '@tanstack/react-table';
 
 // This is a custom hook that wraps useReactTable and useEditableReducer
 export function useEditableTable<T>({
   data,
   columns,
   defaultColumn,
-  getCoreRowModel,
+  getCoreRowModel
 }: Omit<TableOptions<T>, 'data'> & { data: (T & { _id: string })[] }) {
-  const { data: _data, dispatch, getIsEditing } = useEditableReducer({ data })
+  const { data: _data, dispatch, getIsEditing } = useEditableReducer({ data });
 
   const table = useReactTable({
     data: _data,
@@ -20,14 +20,14 @@ export function useEditableTable<T>({
     getCoreRowModel,
     getRowId: (originalRow, index, parent) => {
       // custom get row id
-      return (originalRow as T & { _id: string })._id
+      return (originalRow as T & { _id: string })._id;
     },
-    debugTable: true,
-  })
+    debugTable: true
+  });
 
   return {
     table,
     dispatch,
-    getIsEditing,
-  } as const
+    getIsEditing
+  } as const;
 }

@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export type ControlledInputProps = {
-  className?: string
-  onBlur?: (e: string | number | readonly string[] | undefined) => void
-} & React.InputHTMLAttributes<HTMLInputElement>
+  className?: string;
+  onBlur?: (e: string | number | readonly string[] | undefined) => void;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 // This component is a controlled input
 export default function ControlledInput({ value, className, onBlur = () => {} }: ControlledInputProps) {
-  const [_value, setValue] = useState(value)
+  const [_value, setValue] = useState(value);
 
   useEffect(() => {
-    setValue(value)
-  }, [value])
+    setValue(value);
+  }, [value]);
 
   return (
     <input
@@ -20,5 +20,5 @@ export default function ControlledInput({ value, className, onBlur = () => {} }:
       onChange={(e) => setValue(e.target.value)}
       onBlur={() => onBlur(_value)}
     />
-  )
+  );
 }
