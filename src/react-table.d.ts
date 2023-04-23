@@ -3,7 +3,7 @@ import '@tanstack/react-table'
 import type { ActionProps } from './types'
 
 declare module '@tanstack/table-core' {
-  interface ColumnMeta {
+  interface ColumnMeta<TData extends RowData, TValue> {
     header?: {
       className?: string
       rowSpan?: number
@@ -17,6 +17,9 @@ declare module '@tanstack/table-core' {
       rowSpan?: number
       colSpan?: number
       isExpander?: boolean
+      getRowSpan?: (table: Table<TData>, row: Row<TData>, columnId: Cell<TData, string>) => number | undefined;
+      getColSpan?: (table: Table<TData>, row: Row<TData>, columnId: string) => number | undefined;
+      getClassName?: (row: Row<TData>, columnId: string) => string;
     }
 
     footer?: {
