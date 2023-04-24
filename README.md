@@ -7,8 +7,8 @@ To run this example:
 ```bash
 git clone https://github.com/bightg30098/tanstack-react-table-editable.git
 cd tanstack-react-table-editable
-pnpm i
-pnpm dev
+yarn
+yarn dev
 ```
 
 or open it in [CodeSandbox](https://codesandbox.io/s/github/bightg30098/tanstack-react-table-editable)
